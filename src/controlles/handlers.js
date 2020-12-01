@@ -1,11 +1,11 @@
 const fetch = require('node-fetch');
 
 const getHealthData = (req, res) => {
-  res.send('getHealthData');
+	return 5;
 };
 
 const getRecipeData = (req, res) => {
-  res.send('getRecipeData');
+	res.send('getRecipeData');
 };
 
 module.exports = { getHealthData, getRecipeData };
