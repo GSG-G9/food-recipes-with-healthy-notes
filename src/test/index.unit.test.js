@@ -1,6 +1,6 @@
-const { getHealthData } = require('../controlles/handlers');
+const { getHealthData1 } = require('../controlles/handlers');
 
 test('test jest', () => {
 	// eslint-disable-next-line no-undef
-	expect(getHealthData()).toBe(5);
+	expect(getHealthData1()).toBe(5);
 });

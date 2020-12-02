@@ -1,11 +1,9 @@
-const fetch = require('node-fetch');
-
-const getHealthData = (req, res) => {
-	return 5;
+const fetch = require("node-fetch");
+const path = require("path");
+const getHome = (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "..", "public", "index.html"));
 };
 
-const getRecipeData = (req, res) => {
-	res.send('getRecipeData');
-};
 
-module.exports = { getHealthData, getRecipeData };
+const getHealthData1=()=>5
+module.exports = { getHome ,getHealthData1};
