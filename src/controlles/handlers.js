@@ -3,6 +3,22 @@ const path = require("path");
 const getHome = (req, res) => {
   res.sendFile(path.join(__dirname, "..", "..", "public", "index.html"));
 };
+
+const handleNutrients = ({ ENERC_KCAL, PROCNT, FAT, SUGAR, CHOCDF, CHOLE }) => ({
+	ENERC_KCAL,
+	PROCNT,
+	FAT,
+	SUGAR,
+	CHOCDF,
+	CHOLE,
+});
+
+const handleRecipe = ({ strYoutube, strInstructions }) => ({
+	strYoutube,
+	strInstructions,
+});
+
+
 const getHealthData = (req, res, next) => {
     const searchValue = req.body.value;
     fetch(
@@ -10,7 +26,7 @@ const getHealthData = (req, res, next) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        res.status(200).send(data.hits[0].recipe.totalNutrients);
+        res.status(200).send(handleNutrients(data.hits[0].recipe.totalNutrients));
         next();
       })
       .catch((err) => next(err));
@@ -24,11 +40,11 @@ const getHealthData = (req, res, next) => {
 	)
 	  .then((response) => response.json())
 	  .then((data) => {
-		res.status(200).send(data.meals[0]);
+		res.status(200).send(handleRecipe(data.meals[0]));
 		next();
 	  })
 	  .catch((err) => next(err));
 };
 
 const getHealthData1=()=>5
-module.exports = { getHome ,getHealthData1,getHealthData,getRecipeData};
+module.exports = { getHome ,getHealthData1,getHealthData,getRecipeData,handleNutrients,handleRecipe};
