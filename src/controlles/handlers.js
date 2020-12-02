@@ -24,45 +24,61 @@ const handleRecipe = ({ strYoutube, strInstructions }) => ({
 
 const getHealthData = (req, res, next) => {
   const searchValue = req.body.value;
+  if (searchValue.trim() === "") {
+    res.status(200).json("no value");
+    return;
+  }
   fetch(
-    `https://api.edamam.com/search?q=${searchValue}&app_id=${process.env.recipeAppID}&app_key=${process.env.apiKey}`
+    `https://api.edamam.com/search?q=${searchValue.trim()}&app_id=${
+      process.env.recipeAppID
+    }&app_key=${process.env.apiKey}`
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(
-        handleNutrients(
-          data.hits[0].recipe.totalNutrients,
-          data.hits[0].recipe.totalWeight
-        )
-      );
-      res
-        .status(200)
-        .send(
-          handleNutrients(
-            data.hits[0].recipe.totalNutrients,
-            data.hits[0].recipe.totalWeight
-          )
-        );
+      if (data.count) {
+        res
+          .status(200)
+          .send(
+            handleNutrients(
+              data.hits[0].recipe.totalNutrients,
+              data.hits[0].recipe.totalWeight
+            )
+          );
+        next();
+        return;
+      }
+      res.status(200).json("no result");
       next();
+      return;
     })
     .catch((err) => next(err));
 };
 
 const getRecipeData = (req, res, next) => {
   const searchValue = req.body.value;
-  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`)
+  if (searchValue.trim() === "") {
+    res.status(200).json("no value");
+    return;
+  }
+  fetch(
+    `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue.trim()}`
+  )
     .then((response) => response.json())
+
     .then((data) => {
-      res.status(200).send(handleRecipe(data.meals[0]));
-      next();
+      if (data.meals) {
+        res.status(200).send(handleRecipe(data.meals[0]));
+        next();
+        return;
+      }
+      res.status(200).json("no value");
+      return;
     })
     .catch((err) => next(err));
 };
 
-const getHealthData1 = () => 5;
 module.exports = {
   getHome,
-  getHealthData1,
   getHealthData,
   getRecipeData,
   handleNutrients,
