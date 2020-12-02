@@ -4,20 +4,17 @@ const getHome = (req, res) => {
   res.sendFile(path.join(__dirname, "..", "..", "public", "index.html"));
 };
 
-const handleNutrients = ({
+const handleNutrients = (
+  { ENERC_KCAL, PROCNT, FAT, SUGAR, CHOCDF, CHOLE },
+  weight
+) => ({
   ENERC_KCAL,
   PROCNT,
   FAT,
   SUGAR,
   CHOCDF,
   CHOLE,
-}) => ({
-  ENERC_KCAL,
-  PROCNT,
-  FAT,
-  SUGAR,
-  CHOCDF,
-  CHOLE,
+  weight,
 });
 
 const handleRecipe = ({ strYoutube, strInstructions }) => ({
@@ -32,7 +29,20 @@ const getHealthData = (req, res, next) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      res.status(200).send(handleNutrients(data.hits[0].recipe.totalNutrients));
+      console.log(
+        handleNutrients(
+          data.hits[0].recipe.totalNutrients,
+          data.hits[0].recipe.totalWeight
+        )
+      );
+      res
+        .status(200)
+        .send(
+          handleNutrients(
+            data.hits[0].recipe.totalNutrients,
+            data.hits[0].recipe.totalWeight
+          )
+        );
       next();
     })
     .catch((err) => next(err));
