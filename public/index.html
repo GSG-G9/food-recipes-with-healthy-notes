@@ -1,28 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <input type="text" id="search_food" />
-    <button id="search_btn" type="button">search</button>
-    <div class="recipe" id="recipe"></div>
-    <div class="video">
-      <iframe
-        id="video"
-        width="853"
-        height="480"
-        src="https://www.youtube.com/watch?v=Mt5lgUZRoUg"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.css" />
+  <title>Document</title>
+</head>
+
+<body>
+
+  <section id="main-section">
+    <div class="search-div">
+      <input type="search" id="search_food" placeholder="Enter a Recipe name ..." />
+      <button id="search_btn" type="button">search</button>
     </div>
-    <div class="nutrients" id="nutrients"></div>
-    <script src="./js/request.js"></script>
-    <script src="./js/dom.js"></script>
-  </body>
+    <div class="main-data">
+      <div class="video">
+        <iframe id="video" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <div class="text-data">
+        <div class="nutrients" id="nutrients">
+          <p><span>Weight:</span><span id="recipe-weight"></span></p>
+          <table id="nutrients-table">
+            <tr>
+              <th>
+                Energy
+              </th>
+              <th>
+                Protein
+              </th>
+              <th>
+                Fat
+              </th>
+              <th>
+                Sugars
+              </th>
+              <th>
+                Carbs
+              </th>
+              <th>
+                Cholesterol
+              </th>
+            </tr>
+          </table>
+        </div>
+        <div class="recipe" id="recipe"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <script src="./js/request.js"></script>
+  <script src="./js/dom.js"></script>
+</body>
+
 </html>
