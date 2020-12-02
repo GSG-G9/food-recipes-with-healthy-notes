@@ -15,6 +15,20 @@ const getHealthData = (req, res, next) => {
       })
       .catch((err) => next(err));
   };
+   
+  const getRecipeData = (req, res,next) => {
+	const searchValue = req.body.value;
+	fetch(
+		
+		`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`
+	)
+	  .then((response) => response.json())
+	  .then((data) => {
+		res.status(200).send(data.meals[0]);
+		next();
+	  })
+	  .catch((err) => next(err));
+};
 
 const getHealthData1=()=>5
-module.exports = { getHome ,getHealthData1,getHealthData};
+module.exports = { getHome ,getHealthData1,getHealthData,getRecipeData};
