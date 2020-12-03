@@ -18,14 +18,14 @@ app.use(express.static(join(__dirname, '..', 'public'), { maxAge: '30d' }));
 
 app.use(controllers);
 app.use((req, res, next) => {
-	res
-		.status(404)
-		.sendFile(join(__dirname, '..', 'public', 'errors-pages', '404.html'));
+  res
+    .status(404)
+    .sendFile(join(__dirname, '..', 'public', 'errors-pages', '404.html'));
 });
 app.use((err, req, res, next) => {
-	res
-		.status(500)
-		.sendFile(join(__dirname, '..', 'public', 'errors-pages', '500.html'));
+  res
+    .status(500)
+    .sendFile(join(__dirname, '..', 'public', 'errors-pages', '500.html'));
 });
 
 module.exports = app;

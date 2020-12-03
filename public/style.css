@@ -35,6 +35,10 @@
 	font-weight: 800;
 	border-radius: 1rem;
 }
+
+input:focus{
+	outline: none;
+}
 .main-data {
 	display: flex;
 	width: 100%;
